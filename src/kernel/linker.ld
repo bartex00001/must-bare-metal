@@ -1,14 +1,16 @@
 ENTRY(_start)
 
+. = 0x80000000;
+
 MEMORY {
   rom (rwx) : ORIGIN = 0x80200000, LENGTH = 1M
   ram (rw) : ORIGIN = 0x80300000, LENGTH = 1M
 }
 
 SECTIONS {
-    .text : {
-        *zero.o(.text*)
-        *(.text*)
+    .text : ALIGN(4K) {
+        *(.init);
+        *(.text);
     } > rom
 
     .data : {

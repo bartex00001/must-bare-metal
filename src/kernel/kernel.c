@@ -53,10 +53,10 @@ i32 dec(u8 c) {
 void put_int(i32 n, u8* buf) {
     i32 i = 0;
     while (n > 0) {
-        buf[i++] = n % 2 ? '1' : '0';
-        n /= 2;
+        buf[i++] = (n & 1) + '0';
+        n >>= 1;
     }
-    buf[i] = 0;
+    buf[i] = '\0';
 }
 
 Instruction parse(u8 buf[]) {
@@ -77,7 +77,7 @@ Instruction parse(u8 buf[]) {
     return i;
 }
 
-volatile i32 main() {
+i32 main() {
     u8 buf[255];
     for (i32 i = 0; i < 500000; i++)
         ;
